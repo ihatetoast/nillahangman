@@ -1,13 +1,33 @@
-const air =["egret", "ibis", "eagle", "heron", "parrot", "lorikeet"];
-
-const land = ["zebra", "camel", "oranutan", "tortoise", "taipan", "wolf"];
- 
-const water = ["shark", "lobster", "whale", "turtle", "stingray"];
-
+const animals = [
+    {
+        type: "bird",
+        animals: ["egret", "ibis", "eagle", "heron", "parrot", "lorikeet", "woodpecker", "kingfisher", "kookaburra", "nuthatch", "partridge", "albatross", "hummingbird", "toucan", "cardinal", "parakeet", "sparrow", "penguin", "butterfly"]
+    },
+    {
+        type: "beast",
+        animals: ["zebra", "camel", "oranutan", "tortoise", "taipan", "coyote", "armadillo", "giraffe", "kangaroo", "wallaby", "quokka", "elephant", "ocelot", "lizard", "lemur", "possum", "wombat", "squirrel", "hedgehog", "whale", "crocodile", "alligator", ]
+    },
+    {
+        type: "fish",
+        animals: ["shark", "stingray", "piranha", "salmon", "barracuda", "barramundi", "blobfish", "catfish", "goldfish", "mackerel", "octopus", "jellyfish", "lobster", "seahorse"]
+    }
+];
 
 document.addEventListener("DOMContentLoaded", function() {
     console.log("script did load, ya toad.");
-    console.log(air[1]);
+    function getRando(max){
+        return Math.floor(Math.random() * max);
+       
+    }
+    function getAnimal(){
+
+        const randoIdx = getRando(animals.length);
+        const gameAnimal = animals[randoIdx]
+        return gameAnimal;
+
+    }
+
+    console.log(getAnimal())
     // https://www.gutenberg.org/files/41727/41727-h/41727-h.htm#GameI_50
     // https://www.gutenberg.org/ebooks/41728
     /*

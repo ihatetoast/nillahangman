@@ -4,23 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Merriweather&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./dist/custom.css">
     <title>Hangman</title>
 </head>
 <body>
-    <header>
-        <h1>Air, Land, or Water</h1>
-        <p>A contemporary take on Bird, Beast, or Fish</p>
+    <header class="header">
+        <h1>Bird, Beast, or Fish</h1>
     </header>
     <main>
         <div>
-            <p></p>
+            <h2>How to play</h2>
+            <p>You will be given the name of an animal with only the first and last letters given. Your only other hint will be whether the animal is a bird, beast, or fish. In this game, "Beast" will cover mammals, reptiles, arthropods, and "Fish" will cover true fish as well as other water-dwelling animals.</p>
+            <p>You have 10 seconds to guess the animal. If you are successful, your score increases by the number of intermediate blanks. If you are not, the computer gets that number. First to 100 wins</p>
+            <p>THIS MAY CHANGE. DO THEY NEED MORE TIME?</p>
         </div>
-        play button. 
-        quit/reset button.
-        place to show game xs
-        place to show letters guessed.
-        score?
+        <div class="button-container">
+            <button>Play!</button>
+            <button>Quit</button>
+        </div>
+        <div class="game-container">
+            <p>Your animal i</p>
+            <div class="word" id="word"></div>
+            <input type="text" class="guess" id="guess">
+        </div>
+        
+        <!--
+        place to show word xs
+        timer
+        score? -->
     </main>
     <footer>
 
