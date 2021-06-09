@@ -1,33 +1,53 @@
 const animals = [
     {
         type: "bird",
-        animals: ["egret", "ibis", "eagle", "heron", "parrot", "lorikeet", "woodpecker", "kingfisher", "kookaburra", "nuthatch", "partridge", "albatross", "hummingbird", "toucan", "cardinal", "parakeet", "sparrow", "penguin", "butterfly"]
+        samples: ["egret", "ibis", "eagle", "heron", "parrot", "lorikeet", "woodpecker", "kingfisher", "kookaburra", "nuthatch", "partridge", "albatross", "hummingbird", "toucan", "cardinal", "parakeet", "sparrow", "penguin", "butterfly"]
     },
     {
         type: "beast",
-        animals: ["zebra", "camel", "oranutan", "tortoise", "taipan", "coyote", "armadillo", "giraffe", "kangaroo", "wallaby", "quokka", "elephant", "ocelot", "lizard", "lemur", "possum", "wombat", "squirrel", "hedgehog", "whale", "crocodile", "alligator", ]
+        samples: ["zebra", "camel", "oranutan", "tortoise", "taipan", "coyote", "armadillo", "giraffe", "kangaroo", "wallaby", "quokka", "elephant", "ocelot", "lizard", "lemur", "possum", "wombat", "squirrel", "hedgehog", "whale", "crocodile", "alligator", ]
     },
     {
         type: "fish",
-        animals: ["shark", "stingray", "piranha", "salmon", "barracuda", "barramundi", "blobfish", "catfish", "goldfish", "mackerel", "octopus", "jellyfish", "lobster", "seahorse"]
+        samples: ["shark", "stingray", "piranha", "salmon", "barracuda", "barramundi", "blobfish", "catfish", "goldfish", "mackerel", "octopus", "jellyfish", "lobster", "seahorse"]
     }
 ];
 
 document.addEventListener("DOMContentLoaded", function() {
     console.log("script did load, ya toad.");
+    //ELEMENT VARIABLES
+    var animalType = document.getElementById("animalType");
+    var playButton = document.getElementById("playGame");
+    var quitButton = document.getElementById("quitGame");
+    // YE OLDE RANDE NUMBE
     function getRando(max){
         return Math.floor(Math.random() * max);
-       
     }
+
+    // GET ONE OF THE ANIMAL OBJECTS
     function getAnimal(){
-
         const randoIdx = getRando(animals.length);
-        const gameAnimal = animals[randoIdx]
-        return gameAnimal;
+        const gameAnimalObj =  animals[randoIdx];
+        return gameAnimalObj;
+    };
 
+    // DISPLAY THE GAME PARTS: ANIMAL TYPE AND DASHES
+    function displayGame(){
+        const gameAnimal = getAnimal();
+        const randoAnimalIdx = getRando(gameAnimal.samples.length - 1);
+        console.log(randoAnimalIdx)
+        // const gameAnimalExample = 
+        animalType.innerHTML = gameAnimal.type;
+        
+    };
+
+    // PLAY GAME: DISPLAY GAME BITS, MAKE PLAY BUTTON UNCLICKABLE
+    function handlePlayGame(){
+        displayGame();
+        playButton.removeEventListener("click", handlePlayGame);
     }
+    playButton.addEventListener("click", handlePlayGame);
 
-    console.log(getAnimal())
     // https://www.gutenberg.org/files/41727/41727-h/41727-h.htm#GameI_50
     // https://www.gutenberg.org/ebooks/41728
     /*
