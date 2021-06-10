@@ -12,13 +12,6 @@ const animals = [
         samples: ["shark", "stingray", "piranha", "salmon", "barracuda", "barramundi", "blobfish", "catfish", "goldfish", "mackerel", "octopus", "jellyfish", "lobster", "seahorse"]
     }
 ];
-
-document.addEventListener("DOMContentLoaded", function() {
-    console.log("script did load, ya toad.");
-    //ELEMENT VARIABLES
-    var animalType = document.getElementById("animalType");
-    var playButton = document.getElementById("playGame");
-    var quitButton = document.getElementById("quitGame");
     // YE OLDE RANDE NUMBE
     function getRando(max){
         return Math.floor(Math.random() * max);
@@ -31,13 +24,39 @@ document.addEventListener("DOMContentLoaded", function() {
         return gameAnimalObj;
     };
 
+    // CHANGE WORD TO LETTERS + HYPHENS.
+    function hideLetters(str){
+        let hiddenWordArr =[];
+        const strArr = str.split('');
+        // first and last letters:
+        hiddenWordArr[0] = (strArr[0]);
+        hiddenWordArr[1] =(strArr[strArr.length-1]);
+        // intermediate letters become dashes
+        for(let i = 1; i < strArr.length - 1; i++){
+            hiddenWordArr.splice(1, 0, " - ")
+        }
+        return hiddenWordArr.join("").toUpperCase();
+    }
+   
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("script did load, ya toad.");
+    //ELEMENT VARIABLES
+    var animalType = document.getElementById("animalType"), 
+    animalToGuess = document.getElementById("animalToGuess"),
+    playButton = document.getElementById("playGame");
+    var quitButton = document.getElementById("quitGame");
+    
+    // GAME VARS
+    let gameAnimal, gameAnimalExample;
+ 
     // DISPLAY THE GAME PARTS: ANIMAL TYPE AND DASHES
     function displayGame(){
-        const gameAnimal = getAnimal();
+        gameAnimal = getAnimal();
         const randoAnimalIdx = getRando(gameAnimal.samples.length - 1);
-        console.log(randoAnimalIdx)
-        // const gameAnimalExample = 
+        console.log(gameAnimal.samples[randoAnimalIdx])
+        gameAnimalExample = gameAnimal.samples[randoAnimalIdx]
         animalType.innerHTML = gameAnimal.type;
+        animalToGuess.innerHTML = hideLetters(gameAnimalExample);
         
     };
 
@@ -47,6 +66,15 @@ document.addEventListener("DOMContentLoaded", function() {
         playButton.removeEventListener("click", handlePlayGame);
     }
     playButton.addEventListener("click", handlePlayGame);
+
+    // QUIT THE GAME ~ RESET
+    function handleQuit(){
+        alert("quit game booped");
+        // any score is reset
+        // any timer reset
+        // add evt ltnr to play button
+        // 
+    }
 
     // https://www.gutenberg.org/files/41727/41727-h/41727-h.htm#GameI_50
     // https://www.gutenberg.org/ebooks/41728
