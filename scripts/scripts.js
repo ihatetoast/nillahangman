@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //ELEMENT VARIABLES
     var animalType = document.getElementById("animalType"), 
     animalToGuess = document.getElementById("animalToGuess"),
+    gameContainer = document.getElementById("game-container"),
     playButton = document.getElementById("playGame");
     var quitButton = document.getElementById("quitGame");
     
@@ -63,10 +64,18 @@ document.addEventListener("DOMContentLoaded", function() {
     // PLAY GAME: DISPLAY GAME BITS, MAKE PLAY BUTTON UNCLICKABLE
     function handlePlayGame(){
         displayGame();
+        gameContainer.classList.remove("init-hidden");
         playButton.removeEventListener("click", handlePlayGame);
     }
     playButton.addEventListener("click", handlePlayGame);
-
+    const node = document.getElementById("guess");
+    node.addEventListener("keyup", ({key}) => {
+        let val = document.getElementById("guess").value;
+        if (key === "Enter") {
+         console.log(val)
+        }
+    })
+   
     // QUIT THE GAME ~ RESET
     function handleQuit(){
         alert("quit game booped");

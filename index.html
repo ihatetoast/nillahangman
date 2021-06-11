@@ -16,7 +16,7 @@
     <main>
         <div>
             <h2>How to play</h2>
-            <p>You will be given the name of an animal with only the first and last letters given. Your only other hint will be whether the animal is a bird, beast, or fish. In this game, "Beast" will cover mammals, reptiles, arthropods, and "Fish" will cover true fish as well as other water-dwelling animals.</p>
+            <p>You will be given the name of an animal with only the first and last letters shown. Your only other hint will be whether the animal is a bird, beast, or fish. In this game, "Beast" will cover mammals, reptiles, arthropods, and "Fish" will cover true fish as well as other water-dwelling animals.</p>
             <p>You have 10 seconds to guess the animal. If you are successful, your score increases by the number of intermediate blanks. If you are not, the computer gets that number. First to 100 wins</p>
             <p>THIS MAY CHANGE. DO THEY NEED MORE TIME?</p>
         </div>
@@ -24,10 +24,10 @@
             <button id="playGame">Play!</button>
             <button id="quitGame">Quit</button>
         </div>
-        <div class="game-container">
+        <div id="game-container" class="game-container init-hidden">
             <p class="game-text">Your animal is <span id="animalType"></span>: <span id="animalToGuess"></span></p>
             <div class="word" id="word"></div>
-            <input type="text" class="guess" id="guess">
+            <input type="text" class="guess" id="guess" placeholder="Your guess" >
         </div>
         
         <!--

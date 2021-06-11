@@ -76,3 +76,6 @@ ul {
 
 header, .header {
   font-size: 1.5rem; }
+
+.init-hidden {
+  display: none; }
