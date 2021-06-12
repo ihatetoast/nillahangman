@@ -64,15 +64,30 @@ document.addEventListener("DOMContentLoaded", function() {
     // PLAY GAME: DISPLAY GAME BITS, MAKE PLAY BUTTON UNCLICKABLE
     function handlePlayGame(){
         displayGame();
-        gameContainer.classList.remove("init-hidden");
+        gameContainer.classList.remove("hidden");
+        // REMOVE THE CLICK EVT AND THE UI
         playButton.removeEventListener("click", handlePlayGame);
+        // playButton.
+    }
+
+    // COMPARE VALUE BY GAME PLAYER TO ANIMAL
+    function compareWords(str1, str2){
+        if(str1.toLowerCase() === str2.toLowerCase()){
+            console.log(`${str1} and ${str2} match`);
+        } else {
+            console.log(`${str1} and ${str2} DO NOT match`);
+        }
+        console.log(`String 1 is ${str1}, and String 2 is ${str2}.`);
     }
     playButton.addEventListener("click", handlePlayGame);
+
     const node = document.getElementById("guess");
     node.addEventListener("keyup", ({key}) => {
         let val = document.getElementById("guess").value;
         if (key === "Enter") {
-         console.log(val)
+         console.log(val);
+         compareWords(val, gameAnimalExample)
+         node.value = ""
         }
     })
    
