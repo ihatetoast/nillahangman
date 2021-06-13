@@ -68,12 +68,14 @@ document.addEventListener("DOMContentLoaded", function() {
         // REMOVE THE CLICK EVT AND THE UI
         playButton.removeEventListener("click", handlePlayGame);
         // playButton.
+        startTimer()
     }
 
     // COMPARE VALUE BY GAME PLAYER TO ANIMAL
     function compareWords(str1, str2){
         if(str1.toLowerCase() === str2.toLowerCase()){
             console.log(`${str1} and ${str2} match`);
+            gameOver("You won.");
         } else {
             console.log(`${str1} and ${str2} DO NOT match`);
         }
@@ -90,7 +92,26 @@ document.addEventListener("DOMContentLoaded", function() {
          node.value = ""
         }
     })
-   
+    // GAME TIMER
+    var timer; 
+    var timeRem = 20; 
+    function gameOver(msg) {
+        clearInterval(timer);
+        alert(msg);
+    }
+    function updateTimer() {
+        timeRem = timeRem - 1;
+        if(timeRem >= 0)
+          console.log(timeRem);
+
+        else {
+          gameOver("You lost.");
+        }
+      }
+      function startTimer() {
+        timer = setInterval(updateTimer, 1000);
+
+      }
     // QUIT THE GAME ~ RESET
     function handleQuit(){
         alert("quit game booped");

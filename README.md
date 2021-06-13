@@ -8,10 +8,11 @@ The origin of Hangman is unknown, but there was a game called Bird, Beast, or Fi
 As described by A. B. Gomme:
 >This is a slate game, and two or more children play. One writes the initial and final letters of a bird’s, beast’s, or fish’s name, making crosses (×) instead of the intermediate letters of the word, stating whether the name is that of bird, beast, or fish. The other players must guess in turn what the name is. The first one who succeeds takes for himself the same number of marks as there are crosses in the word, and then writes the name of anything he chooses in the same manner. If the players are unsuccessful in guessing the name, the writer takes the number to his own score and writes another. The game is won when one player gains a certain number of marks previously decided upon as “game.” 
 
-For this version, "Beast" will cover mammals, reptiles, and land arthropods, and "Fish" will cover true fish as well as other water-dwelling animals excluding water mammals. To follow the original rules, the first and last letters will be given, and the game will let the player know what realm the animal comes from.
+For this version, "Beast" will cover mammals, reptiles, and land arthropods, and "Fish" will cover true fish as well as other water-dwelling animals excluding water mammals. 
 
-... TO BE DECIDED: 
-LIMITED NUMBER OF GUESSES LIKE HANGMAN OR HAVE GAME PLAY AND KEEP SCORE.
+The original game says the user has 10 seconds. I believe a child's one-mississippi last longer than 1 second, so I, being such a sweet thing, am giving the user 20 seconds.
+
+
 
 ## Why
 I've done Hangman many times, but this game seems like a nice challenge. Something different. Since the game is less familiar to me, the pseudo coding will be as much of a challenge as the Jabba Script, and I find that exciting.
