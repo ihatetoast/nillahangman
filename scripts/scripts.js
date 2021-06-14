@@ -1,17 +1,41 @@
+
+// check spelling. as in mantaray or manta ray 
 const animals = [
     {
         type: "bird",
-        samples: ["egret", "ibis", "eagle", "heron", "parrot", "lorikeet", "woodpecker", "kingfisher", "kookaburra", "nuthatch", "partridge", "albatross", "hummingbird", "toucan", "cardinal", "parakeet", "sparrow", "penguin", "butterfly"]
+        samples: ["egret", "ibis", "eagle", "heron", "parrot", "lorikeet", "woodpecker", "kingfisher", "kookaburra", "nuthatch", "partridge", "albatross", "hummingbird", "toucan", "cardinal", "parakeet", "sparrow", "penguin", "butterfly", "bald eagle", ]
     },
     {
         type: "beast",
-        samples: ["zebra", "camel", "oranutan", "tortoise", "taipan", "coyote", "armadillo", "giraffe", "kangaroo", "wallaby", "quokka", "elephant", "ocelot", "lizard", "lemur", "possum", "wombat", "squirrel", "hedgehog", "whale", "crocodile", "alligator", ]
+        samples: ["zebra", "camel", "oranutan", "tortoise", "taipan", "coyote", "armadillo", "giraffe", "kangaroo", "wallaby", "quokka", "elephant", "ocelot", "lizard", "lemur", "possum", "opossum", "wombat", "squirrel", "hedgehog", "whale", "crocodile", "alligator", "mountain lion", "beaver"]
     },
     {
         type: "fish",
-        samples: ["shark", "stingray", "piranha", "salmon", "barracuda", "barramundi", "blobfish", "catfish", "goldfish", "mackerel", "octopus", "jellyfish", "lobster", "seahorse"]
+        samples: ["stingray", "piranha", "salmon", "barracuda", "barramundi", "blobfish", "catfish", "goldfish", "mackerel", "octopus", "jellyfish", "lobster", "seahorse", "tiger shark"]
     }
 ];
+// const animals = [
+//     {
+//         type: "bird",
+//         samples: ["bald eagle", ]
+//     },
+//     {
+//         type: "beast",
+//         samples: [ "mountain lion"]
+//     },
+//     {
+//         type: "fish",
+//         samples: ["tiger shark"]
+//     }
+// ];
+
+    // SCORE VARIABLES
+    let playerScore = 0;
+    let computerScore = 0;
+    let scoreAmount = 0;
+
+    // FUNCTIONS THAT DO NOT RELY ON DOM RENDERING
+
     // YE OLDE RANDE NUMBE
     function getRando(max){
         return Math.floor(Math.random() * max);
@@ -25,7 +49,7 @@ const animals = [
     };
 
     // CHANGE WORD TO LETTERS + HYPHENS.
-    function hideLetters(str){
+    function handleGameWord(str){
         let hiddenWordArr =[];
         const strArr = str.split('');
         // first and last letters:
@@ -33,8 +57,14 @@ const animals = [
         hiddenWordArr[1] =(strArr[strArr.length-1]);
         // intermediate letters become dashes
         for(let i = 1; i < strArr.length - 1; i++){
-            hiddenWordArr.splice(1, 0, " - ")
+            if(strArr[i]===" "){
+                hiddenWordArr.splice(i, 0, " / ");
+            } else {
+                hiddenWordArr.splice(i, 0, " - ");
+                scoreAmount++;
+            }
         }
+        console.log(scoreAmount)
         return hiddenWordArr.join("").toUpperCase();
     }
    
@@ -46,7 +76,13 @@ document.addEventListener("DOMContentLoaded", function() {
     gameContainer = document.getElementById("game-container"),
     playButton = document.getElementById("playGame");
     var quitButton = document.getElementById("quitGame");
+
+    // TIME AS VAR SINCE I KEEP CHANGING MY MIND. 
+    // TIME HERE FILLS HTML AND TIMER
+    var timeLimit = 20;
+
     
+    document.getElementById("time").innerHTML = timeLimit;
     // GAME VARS
     let gameAnimal, gameAnimalExample;
  
@@ -57,8 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(gameAnimal.samples[randoAnimalIdx])
         gameAnimalExample = gameAnimal.samples[randoAnimalIdx]
         animalType.innerHTML = gameAnimal.type;
-        animalToGuess.innerHTML = hideLetters(gameAnimalExample);
-        
+        animalToGuess.innerHTML = handleGameWord(gameAnimalExample);
     };
 
     // PLAY GAME: DISPLAY GAME BITS, MAKE PLAY BUTTON UNCLICKABLE
@@ -66,7 +101,8 @@ document.addEventListener("DOMContentLoaded", function() {
         displayGame();
         gameContainer.classList.remove("hidden");
         // REMOVE THE CLICK EVT AND THE UI
-        playButton.removeEventListener("click", handlePlayGame);
+        playButton.classList.add("hidden");
+        quitButton.classList.remove("hidden");
         // playButton.
         startTimer()
     }
@@ -74,9 +110,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // COMPARE VALUE BY GAME PLAYER TO ANIMAL
     function compareWords(str1, str2){
         if(str1.toLowerCase() === str2.toLowerCase()){
-            console.log(`${str1} and ${str2} match`);
+            // UI: let user know.
+            // give score to user
+            // number of interim blanks
             gameOver("You won.");
         } else {
+            // NO UI for bad gues
             console.log(`${str1} and ${str2} DO NOT match`);
         }
         console.log(`String 1 is ${str1}, and String 2 is ${str2}.`);
@@ -93,12 +132,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     })
     // GAME TIMER
-    var timer; 
-    var timeRem = 20; 
+    let timer; 
+    let timeRem = 20; 
+    // GAME OVER CLEARS INTERVAL, RESETS TIMER WORD VARS
     function gameOver(msg) {
         clearInterval(timer);
-        alert(msg);
+        timer = 0;
+        timeRem = 20;
+        gameAnimal = "";
+        gameAnimalExample = "";
+        alert(msg);// REMOVE THIS LATER
     }
+
     function updateTimer() {
         timeRem = timeRem - 1;
         if(timeRem >= 0)
@@ -106,21 +151,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
         else {
           gameOver("You lost.");
+          quitButton.classList.add("hidden");
+          playButton.classList.remove("hidden");
         }
       }
+
       function startTimer() {
         timer = setInterval(updateTimer, 1000);
-
       }
+
     // QUIT THE GAME ~ RESET
     function handleQuit(){
-        alert("quit game booped");
         // any score is reset
+        playerScore = 0;
+        computerScore = 0;
+        scoreAmount = 0;
         // any timer reset
-        // add evt ltnr to play button
-        // 
+        gameOver("Player quits. All scores reset");
+        gameContainer.classList.remove("hidden");
+        quitButton.classList.add("hidden");
+        playButton.classList.remove("hidden");
     }
-
+    quitButton.addEventListener("click", handleQuit);
     // https://www.gutenberg.org/files/41727/41727-h/41727-h.htm#GameI_50
     // https://www.gutenberg.org/ebooks/41728
     /*

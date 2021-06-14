@@ -10,7 +10,7 @@ As described by A. B. Gomme:
 
 For this version, "Beast" will cover mammals, reptiles, and land arthropods, and "Fish" will cover true fish as well as other water-dwelling animals excluding water mammals. 
 
-The original game says the user has 10 seconds. I believe a child's one-mississippi last longer than 1 second, so I, being such a sweet thing, am giving the user 20 seconds.
+The original game says the user has 10 seconds. I believe a child's one-mississippi last longer than 1 second, so I, being such a sweet thing, am giving the user 20 seconds. Using setInterval instead of Date because kids' timing skills align more with funky browswers than the Date object. 
 
 
 
