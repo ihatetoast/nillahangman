@@ -1,7 +1,12 @@
+// gulp sass 
+
 $test: #bada55;
 $writing: "'Architects Daughter', cursive";
 $title:"'Merriweather', serif";
 $text: "'Roboto', sans-serif";
+
+$test1: chartreuse;
+$test2: rebeccapurple;
 * {
     margin: 0;
     padding: 0; 
@@ -20,13 +25,13 @@ html {
   
 /* Type will scale with document */
 h1 {
-    font-size: 3rem;
+    font-size: 2rem;
 }
 h2 {
-    font-size: 2.5rem;
+    font-size: 1.75rem;
 }
 h3 {
-    font-size: 2rem;
+    font-size: 1.25rem;
 }
 ul {
     list-style: none;
@@ -36,6 +41,17 @@ header, .header {
 }
 
 
-.hidden {
+.vis-hidden {
+    visibility: hidden;
+}
+.disp-none {
     display: none;
+}
+
+
+.instructions{
+    background-color: $test1;
+}
+.game-section {
+    background-color: $test2;
 }

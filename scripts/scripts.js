@@ -21,7 +21,7 @@ const animals = [
 //     },
 //     {
 //         type: "beast",
-//         samples: [ "mountain lion"]
+//         samples: [ "mountain lion", "pink fairy armadillo"]
 //     },
 //     {
 //         type: "fish",
@@ -68,41 +68,50 @@ const animals = [
         return hiddenWordArr.join("").toUpperCase();
     }
    
+
 document.addEventListener("DOMContentLoaded", function() {
     console.log("script did load, ya toad.");
     //ELEMENT VARIABLES
     var animalType = document.getElementById("animalType"), 
     animalToGuess = document.getElementById("animalToGuess"),
-    gameContainer = document.getElementById("game-container"),
-    playButton = document.getElementById("playGame");
-    var quitButton = document.getElementById("quitGame");
+    wordWrapper = document.getElementById("game-word-wrapper"),
+    playButton = document.getElementById("playGame"),
+    quitButton = document.getElementById("quitGame"),
+    userScore = document.getElementById("user-score"),
+    compScore = document.getElementById("computer-score");
 
     // TIME AS VAR SINCE I KEEP CHANGING MY MIND. 
     // TIME HERE FILLS HTML AND TIMER
     var timeLimit = 20;
-
     
     document.getElementById("time").innerHTML = timeLimit;
     // GAME VARS
     let gameAnimal, gameAnimalExample;
  
+    // UPDATE SCORES
+    function updateScores(){
+        userScore.innerHTML = playerScore;
+        compScore.innerHTML = computerScore;
+    }
+    updateScores();
     // DISPLAY THE GAME PARTS: ANIMAL TYPE AND DASHES
     function displayGame(){
         gameAnimal = getAnimal();
         const randoAnimalIdx = getRando(gameAnimal.samples.length - 1);
         console.log(gameAnimal.samples[randoAnimalIdx])
-        gameAnimalExample = gameAnimal.samples[randoAnimalIdx]
+        gameAnimalExample = gameAnimal.samples[randoAnimalIdx];
         animalType.innerHTML = gameAnimal.type;
         animalToGuess.innerHTML = handleGameWord(gameAnimalExample);
+        updateScores();
     };
 
     // PLAY GAME: DISPLAY GAME BITS, MAKE PLAY BUTTON UNCLICKABLE
     function handlePlayGame(){
         displayGame();
-        gameContainer.classList.remove("hidden");
+        wordWrapper.classList.remove("vis-hidden");
         // REMOVE THE CLICK EVT AND THE UI
-        playButton.classList.add("hidden");
-        quitButton.classList.remove("hidden");
+        playButton.classList.add("disp-none");
+        quitButton.classList.remove("disp-none");
         // playButton.
         startTimer()
     }
@@ -151,8 +160,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         else {
           gameOver("You lost.");
-          quitButton.classList.add("hidden");
-          playButton.classList.remove("hidden");
+          quitButton.classList.add("vis-hidden");
+          playButton.classList.remove("vis-hidden");
         }
       }
 
@@ -166,27 +175,13 @@ document.addEventListener("DOMContentLoaded", function() {
         playerScore = 0;
         computerScore = 0;
         scoreAmount = 0;
+        
         // any timer reset
         gameOver("Player quits. All scores reset");
-        gameContainer.classList.remove("hidden");
-        quitButton.classList.add("hidden");
-        playButton.classList.remove("hidden");
+        wordWrapper.classList.remove("disp-none");
+        quitButton.classList.add("vis-hidden");
+        playButton.classList.remove("vis-hidden");
     }
     quitButton.addEventListener("click", handleQuit);
-    // https://www.gutenberg.org/files/41727/41727-h/41727-h.htm#GameI_50
-    // https://www.gutenberg.org/ebooks/41728
-    /*
-    The Traditional Games of England, Scotland, and Ireland (Vol 2 of 2) With Tunes, Singing-Rhymes, and Methods of Playing etc.
-    	Gomme, Alice Bertha, 1853-1938
-    This is a slate game, and two or more children play. One writes the initial and final letters of a bird’s, beast’s, or fish’s[34] name, making crosses (×) instead of the intermediate letters of the word, stating whether the name is that of bird, beast, or fish. The other players must guess in turn what the name is. The first one who succeeds takes for himself the same number of marks as there are crosses in the word, and then writes the name of anything he chooses in the same manner. If the players are unsuccessful in guessing the name, the writer takes the number to his own score and writes another. The game is won when one player gains a certain number of marks previously decided upon as “game.”—Barnes (Alice Bertha Gomme).
-    */
-    // while word is not solved or wrong answers < 6, play game
-    // user chooses bird, beast, or fish.
-    // dep on the above, a random word is chosen from an array of B, B, or F.
-    // display as blanks wtih first and last letter given
-    // let user pick a letter
-    // store the letter
-    // let user know if letter is in word or not.
-    // if letter is not in word, show body part
-    // if letter is in word, show letter (all instances) UI, 
+    
   });
