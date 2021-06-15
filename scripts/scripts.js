@@ -33,6 +33,26 @@ const animals = [
     let playerScore = 0;
     let computerScore = 0;
     let scoreAmount = 0;
+    // TIME AS VAR SINCE I KEEP CHANGING MY MIND. 
+    // TIME HERE FILLS HTML AND TIMER
+    const timeLimit = 20;
+    // GAME VARS
+    let gameAnimal, gameAnimalExample;
+
+    // GAME TIMER
+    let timer; 
+    let timeRem = 20;
+
+
+    var animalType = document.getElementById("animalType"), 
+    animalToGuess = document.getElementById("animalToGuess"),
+    wordWrapper = document.getElementById("game-word-wrapper"),
+    playButton = document.getElementById("playGame"),
+    quitButton = document.getElementById("quitGame"),
+    userScore = document.getElementById("user-score"),
+    compScore = document.getElementById("computer-score"),
+    message = document.getElementById("message");
+
 
     // FUNCTIONS THAT DO NOT RELY ON DOM RENDERING
 
@@ -61,32 +81,22 @@ const animals = [
                 hiddenWordArr.splice(i, 0, " / ");
             } else {
                 hiddenWordArr.splice(i, 0, " - ");
+                // INTERMITTENT LETTERS = SCORE TAHT WILL GO TO USER OR PUTER
                 scoreAmount++;
             }
         }
-        console.log(scoreAmount)
         return hiddenWordArr.join("").toUpperCase();
     }
    
-
+    // TAKES AND ARRAY AND TOGGLES CLASS. USU FOR THE BUTTONS HERE
+    function toggleClass(els, cls){     
+        els.forEach(el => el.classList.contains(cls) ? el.classList.remove(cls) : el.classList.add(cls))
+    };
+    
 document.addEventListener("DOMContentLoaded", function() {
     console.log("script did load, ya toad.");
-    //ELEMENT VARIABLES
-    var animalType = document.getElementById("animalType"), 
-    animalToGuess = document.getElementById("animalToGuess"),
-    wordWrapper = document.getElementById("game-word-wrapper"),
-    playButton = document.getElementById("playGame"),
-    quitButton = document.getElementById("quitGame"),
-    userScore = document.getElementById("user-score"),
-    compScore = document.getElementById("computer-score");
 
-    // TIME AS VAR SINCE I KEEP CHANGING MY MIND. 
-    // TIME HERE FILLS HTML AND TIMER
-    var timeLimit = 20;
-    
     document.getElementById("time").innerHTML = timeLimit;
-    // GAME VARS
-    let gameAnimal, gameAnimalExample;
  
     // UPDATE SCORES
     function updateScores(){
@@ -94,6 +104,17 @@ document.addEventListener("DOMContentLoaded", function() {
         compScore.innerHTML = computerScore;
     }
     updateScores();
+
+    
+    // PLAY GAME: DISPLAY GAME BITS, MAKE PLAY BUTTON UNCLICKABLE
+    function handlePlayGame(){
+        displayGame();
+        toggleClass([wordWrapper], "vis-hidden");
+        // REMOVE THE CLICK EVT AND THE UI
+        toggleClass([playButton, quitButton], "disp-none");
+        startTimer();
+    }
+    
     // DISPLAY THE GAME PARTS: ANIMAL TYPE AND DASHES
     function displayGame(){
         gameAnimal = getAnimal();
@@ -105,27 +126,18 @@ document.addEventListener("DOMContentLoaded", function() {
         updateScores();
     };
 
-    // PLAY GAME: DISPLAY GAME BITS, MAKE PLAY BUTTON UNCLICKABLE
-    function handlePlayGame(){
-        displayGame();
-        wordWrapper.classList.remove("vis-hidden");
-        // REMOVE THE CLICK EVT AND THE UI
-        playButton.classList.add("disp-none");
-        quitButton.classList.remove("disp-none");
-        // playButton.
-        startTimer()
-    }
+    
 
     // COMPARE VALUE BY GAME PLAYER TO ANIMAL
     function compareWords(str1, str2){
         if(str1.toLowerCase() === str2.toLowerCase()){
-            // UI: let user know.
-            // give score to user
-            // number of interim blanks
-            gameOver("You won.");
+            console.log(`String 1 is ${str1}, and String 2 is ${str2}.`);
+            playerScore += scoreAmount;
+            gameOver("You guessed correctly.");
+            updateScores();
         } else {
-            // NO UI for bad gues
-            console.log(`${str1} and ${str2} DO NOT match`);
+            console.log(`String 1 is ${str1}, and String 2 is ${str2}.`);
+            // return;
         }
         console.log(`String 1 is ${str1}, and String 2 is ${str2}.`);
     }
@@ -140,9 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
          node.value = ""
         }
     })
-    // GAME TIMER
-    let timer; 
-    let timeRem = 20; 
+     
     // GAME OVER CLEARS INTERVAL, RESETS TIMER WORD VARS
     function gameOver(msg) {
         clearInterval(timer);
@@ -157,17 +167,17 @@ document.addEventListener("DOMContentLoaded", function() {
         timeRem = timeRem - 1;
         if(timeRem >= 0)
           console.log(timeRem);
-
+// do some fancy ui shit here
         else {
           gameOver("You lost.");
-          quitButton.classList.add("vis-hidden");
-          playButton.classList.remove("vis-hidden");
+          computerScore += scoreAmount;
+          toggleClass([playButton, quitButton], "disp-none");
         }
       }
 
-      function startTimer() {
+    function startTimer() {
         timer = setInterval(updateTimer, 1000);
-      }
+    }
 
     // QUIT THE GAME ~ RESET
     function handleQuit(){
@@ -178,9 +188,8 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // any timer reset
         gameOver("Player quits. All scores reset");
-        wordWrapper.classList.remove("disp-none");
-        quitButton.classList.add("vis-hidden");
-        playButton.classList.remove("vis-hidden");
+        toggleClass([wordWrapper], "vis-hidden");
+        toggleClass([playButton, quitButton], "disp-none");
     }
     quitButton.addEventListener("click", handleQuit);
     

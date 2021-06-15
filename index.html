@@ -24,7 +24,7 @@
             <!-- BUTTON CONTAINER ALWAYS DISPLAYED. ONLY BUTTONS INSIDE CHANGE -->
             <div class="button-container">
                 <button id="playGame" >Play!</button>
-                <button id="quitGame" class="vis-hidden">Quit</button>
+                <button id="quitGame" class="disp-none">Quit</button>
             </div>
             <!-- GAME CONTAINER WILL SHOW SCORE AND WORD. STAYS OPEN ALL GAME.
             CLOSES WHEN USER QUITS. ?
@@ -35,8 +35,9 @@
                         <li class="score user">You: <span id="user-score"></span></li>
                         <li class="score computer">Computer: <span id="computer-score"></span></li>
                     </ul>
+                    <p id="message" class="vis-hidden"></p>
                 </div>
-                <div class="game-word-wrapper hidden" id="game-word-wrapper">
+                <div class="game-word-wrapper vis-hidden" id="game-word-wrapper">
                     <p class="game-text">Your animal is <span id="animalType"></span>: <span id="animalToGuess"></span></p>
                     <input type="text" class="guess" id="guess" placeholder="Your guess" >
                 </div>
