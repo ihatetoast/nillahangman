@@ -3,7 +3,7 @@
 const animals = [
     {
         type: "bird",
-        samples: ["egret", "ibis", "eagle", "heron", "parrot", "lorikeet", "woodpecker", "kingfisher", "kookaburra", "nuthatch", "partridge", "albatross", "hummingbird", "toucan", "cardinal", "parakeet", "sparrow", "penguin", "butterfly", "bald eagle", ]
+        samples: ["egret", "ibis", "eagle", "heron", "parrot", "lorikeet", "woodpecker", "kingfisher", "kookaburra", "nuthatch", "partridge", "albatross", "hummingbird", "toucan", "cardinal", "parakeet", "sparrow", "penguin", "butterfly", "bald eagle" ]
     },
     {
         type: "beast",
@@ -54,7 +54,11 @@ const animals = [
     message = document.getElementById("message");
 
 
-    // FUNCTIONS THAT DO NOT RELY ON DOM RENDERING
+     // UPDATE SCORES
+     function updateScores(){
+        userScore.innerHTML = playerScore;
+        compScore.innerHTML = computerScore;
+    }
 
     // YE OLDE RANDE NUMBE
     function getRando(max){
@@ -94,23 +98,15 @@ const animals = [
     };
     
 document.addEventListener("DOMContentLoaded", function() {
-    console.log("script did load, ya toad.");
 
     document.getElementById("time").innerHTML = timeLimit;
  
-    // UPDATE SCORES
-    function updateScores(){
-        userScore.innerHTML = playerScore;
-        compScore.innerHTML = computerScore;
-    }
     updateScores();
 
-    
     // PLAY GAME: DISPLAY GAME BITS, MAKE PLAY BUTTON UNCLICKABLE
     function handlePlayGame(){
         displayGame();
         toggleClass([wordWrapper], "vis-hidden");
-        // REMOVE THE CLICK EVT AND THE UI
         toggleClass([playButton, quitButton], "disp-none");
         startTimer();
     }
@@ -123,17 +119,15 @@ document.addEventListener("DOMContentLoaded", function() {
         gameAnimalExample = gameAnimal.samples[randoAnimalIdx];
         animalType.innerHTML = gameAnimal.type;
         animalToGuess.innerHTML = handleGameWord(gameAnimalExample);
-        updateScores();
     };
 
-    
 
     // COMPARE VALUE BY GAME PLAYER TO ANIMAL
     function compareWords(str1, str2){
         if(str1.toLowerCase() === str2.toLowerCase()){
             console.log(`String 1 is ${str1}, and String 2 is ${str2}.`);
             playerScore += scoreAmount;
-            gameOver("You guessed correctly.");
+            roundReset("You guessed correctly.");
             updateScores();
         } else {
             console.log(`String 1 is ${str1}, and String 2 is ${str2}.`);
@@ -154,24 +148,30 @@ document.addEventListener("DOMContentLoaded", function() {
     })
      
     // GAME OVER CLEARS INTERVAL, RESETS TIMER WORD VARS
-    function gameOver(msg) {
+    function roundReset(msg) {
         clearInterval(timer);
         timer = 0;
         timeRem = 20;
         gameAnimal = "";
         gameAnimalExample = "";
-        alert(msg);// REMOVE THIS LATER
+        toggleClass([message], "vis-hidden");
+        message.innerHTML = msg;
+        setTimeout(() => {
+            message.innerHTML ='';
+            toggleClass([message], "vis-hidden");
+        }, 3000);
+        
+        displayGame();
     }
 
     function updateTimer() {
         timeRem = timeRem - 1;
         if(timeRem >= 0)
-          console.log(timeRem);
-// do some fancy ui shit here
+            console.log(timeRem);
+            // do some fancy ui shit here
         else {
-          gameOver("You lost.");
-          computerScore += scoreAmount;
-          toggleClass([playButton, quitButton], "disp-none");
+            roundReset("Time's up.");
+            computerScore += scoreAmount;
         }
       }
 
@@ -185,9 +185,7 @@ document.addEventListener("DOMContentLoaded", function() {
         playerScore = 0;
         computerScore = 0;
         scoreAmount = 0;
-        
-        // any timer reset
-        gameOver("Player quits. All scores reset");
+        updateScores();
         toggleClass([wordWrapper], "vis-hidden");
         toggleClass([playButton, quitButton], "disp-none");
     }
