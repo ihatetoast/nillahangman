@@ -51,7 +51,8 @@ table {
   box-sizing: border-box; }
 
 html {
-  font-size: 16px; }
+  font-size: 16px;
+  font-family: "Roboto", sans-serif; }
 
 @media (max-width: 900px) {
   html {
@@ -61,30 +62,40 @@ html {
   html {
     font-size: 13px; } }
 
-/* Type will scale with document */
+p {
+  line-height: 1.25em;
+  font-size: 1.2rem; }
+
 h1 {
   font-size: 2rem; }
 
 h2 {
-  font-size: 1.75rem; }
-
-h3 {
-  font-size: 1.25rem; }
+  font-size: 1.5rem; }
 
 ul {
   list-style: none; }
 
-header, .header {
-  font-size: 1.5rem; }
+header {
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-family: "Merriweather", serif;
+  padding: 1em; }
+
+section {
+  padding: 1em;
+  margin: 0 auto; }
+  section.instructions {
+    width: 80%; }
+    section.instructions li {
+      line-height: 1.2em;
+      font-size: 1.2rem;
+      margin: 0.5em 0; }
+  section.game-section {
+    width: 40%; }
 
 .vis-hidden {
   visibility: hidden; }
 
 .disp-none {
   display: none; }
-
-.instructions {
-  background-color: #c7f798; }
-
-.game-section {
-  background-color: #c89cf5; }

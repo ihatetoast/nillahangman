@@ -107,6 +107,8 @@ document.addEventListener("DOMContentLoaded", function() {
     function handlePlayGame(){
         displayGame();
         toggleClass([wordWrapper], "vis-hidden");
+        document.getElementById("guess").focus();
+        document.getElementById("guess").select();
         toggleClass([playButton, quitButton], "disp-none");
         startTimer();
     }
@@ -119,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
         gameAnimalExample = gameAnimal.samples[randoAnimalIdx];
         animalType.innerHTML = gameAnimal.type;
         animalToGuess.innerHTML = handleGameWord(gameAnimalExample);
+        
     };
 
 
