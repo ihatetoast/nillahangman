@@ -94,6 +94,9 @@ section {
   section.game-section {
     width: 40%; }
 
+.button-container .buttons {
+  border: none; }
+
 .vis-hidden {
   visibility: hidden; }
 
