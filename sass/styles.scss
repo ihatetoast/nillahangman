@@ -7,13 +7,23 @@ $text: "Roboto", sans-serif;
 
 $test1: rgb(199, 247, 152);
 $test2: rgb(200, 156, 245);
+
+$black: #1e1f23;
+$white: #e9ecf3;
+$dkgrey: #555a5f;
+$orange: #f3c083;
+$dkorange: #ff9900;
+$green: #63a550;
+$blue: #3b5998;
+$dkblue: #0e385f;
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 html {
+  color: $black;
   font-size: 16px;
   font-family: $text;
 }
@@ -43,6 +53,8 @@ ul {
   list-style: none;
 }
 header {
+  background-color: $orange;
+  color: $dkgrey;
   display: flex;
   justify-content: center;
   font-size: 1.5rem;
@@ -66,9 +78,16 @@ section {
   }
 }
 .button-container {
-    .buttons{
-        border: none;
+  .buttons {
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    padding: 0.5em 1em;
+    &.playBtn{
+      background-color: $dkorange;
+      color: $dkgrey;
     }
+  }
 }
 .vis-hidden {
   visibility: hidden;
