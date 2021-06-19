@@ -76,17 +76,48 @@ section {
   &.game-section {
     width: 40%;
   }
+
 }
 .button-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+  .message{
+    margin-left: 1em;
+  }
   .buttons {
     border: none;
     border-radius: 5px;
     font-size: 1.2rem;
     padding: 0.5em 1em;
+    &:hover{
+      cursor: pointer;
+    }
     &.playBtn{
       background-color: $dkorange;
       color: $dkgrey;
     }
+    &.playBtn:hover{
+      background-color: $orange;
+      color: $black;
+    }
+    &.quitBtn{
+      background-color: $black;
+      color: $orange;
+    }
+    &.quitBtn:hover{
+      background-color: $dkgrey;
+      color: $dkorange;
+    }
+  }
+}
+.game-container .scores{
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  li.score{
+    font-size: 1.5rem;
+    font-family: $title;
   }
 }
 .vis-hidden {
