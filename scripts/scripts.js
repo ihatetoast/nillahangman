@@ -35,7 +35,7 @@ const animals = [
     let scoreAmount = 0;
     // TIME AS VAR SINCE I KEEP CHANGING MY MIND. 
     // TIME HERE FILLS HTML AND TIMER
-    const timeLimit = 5;// sep var since this is in html and fcn
+    const timeLimit = 20;// sep var since this is in html and fcn
     // GAME VARS
     let gameAnimal, gameAnimalExample, isWordGuessed;
 
@@ -49,6 +49,7 @@ const animals = [
     quitButton = document.getElementById("quitGame"),
     userScore = document.getElementById("user-score"),
     compScore = document.getElementById("computer-score"),
+    lights = document.getElementById("lights"),
     message = document.getElementById("message");
 
 
@@ -95,10 +96,26 @@ const animals = [
         els.forEach(el => el.classList.contains(cls) ? el.classList.remove(cls) : el.classList.add(cls))
     };
     
+
+// DOM 
+// DOM LOADED 
+// DOM LOADED DOM 
+// DOM LOADED DOM LOADED 
+// DOM LOADED DOM LOADED DOM 
+// DOM LOADED DOM LOADED DOM LOADED
+// DOM LOADED DOM LOADED DOM LOADED DOM
+// DOM LOADED DOM LOADED DOM LOADED DOM DOM DOM DOM DOMMMMMM
 document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("time").innerHTML = timeLimit;
- 
+    for(let i = 0; i < 20; i++){
+        let light = document.createElement('li');
+        light.classList.add("lightson")
+        light.setAttribute("id", "light-"+i);
+        light.innerHTML = "*"
+        lights.insertBefore(light, lights.childNodes[0]);
+
+    }
     updateScores();
 
     // PLAY GAME: DISPLAY GAME BITS, MAKE PLAY BUTTON UNCLICKABLE
@@ -145,7 +162,6 @@ document.addEventListener("DOMContentLoaded", function() {
     node.addEventListener("keyup", ({key}) => {
         let val = document.getElementById("guess").value;
         if (key === "Enter") {
-         console.log(val);
          compareWords(val, gameAnimalExample)
          node.value = ""
         }
@@ -175,10 +191,12 @@ document.addEventListener("DOMContentLoaded", function() {
     let timeRem = timeLimit;
     function updateTimer() {
         timeRem = timeRem - 1;
+        
+        let lt = document.getElementById("light-"+timeRem)
+        lt.classList.add("off")
         if(timeRem > 0){
             console.log(timeRem);
-            // message.innerHTML = timeRem;
-            // do some fancy ui shit here
+
         }
         else {
             if(!isWordGuessed){
@@ -203,6 +221,8 @@ document.addEventListener("DOMContentLoaded", function() {
         updateScores();
         toggleClass([wordWrapper], "vis-hidden");
         toggleClass([playButton, quitButton], "disp-none");
+        let allLights = document.getElementsByClassName("lightson");
+        allLights.classList.remove("off");
     }
     quitButton.addEventListener("click", handleQuit);
     
