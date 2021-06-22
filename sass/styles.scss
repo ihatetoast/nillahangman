@@ -28,16 +28,7 @@ html {
   font-size: 16px;
   font-family: $text;
 }
-@media (max-width: 900px) {
-  html {
-    font-size: 15px;
-  }
-}
-@media (max-width: 400px) {
-  html {
-    font-size: 13px;
-  }
-}
+
 p {
   line-height: 1.25em;
   font-size: 1.2rem;
@@ -62,6 +53,12 @@ header {
   font-family: $title;
   padding: 1em;
 }
+.vis-hidden {
+  visibility: hidden;
+}
+.disp-none {
+  display: none;
+}
 
 section {
   padding: 1em;
@@ -79,6 +76,8 @@ section {
   }
 
 }
+
+
 .button-container {
   display: flex;
   align-items: center;
@@ -112,6 +111,11 @@ section {
     }
   }
 }
+input.guess{
+  font-size: 1.2rem;
+  padding: 0.5em 0.2em;
+  width: 50%;
+}
 .game-container .scores{
   min-width: 22em;
   width: 50%;
@@ -133,15 +137,15 @@ section {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding-top: 4px;
-      height: 20px;
-      width: 20px;
+      height: 30px;
+      width: 30px;
       
     }
     li[class^="lightbulbs"]{
       background-color: $light;
       box-shadow: 0 0 5px 0px $light;
-      color: darken($light, 20%);
+      color: #FF7303;
+      text-shadow: #ff4a03 0px 0px 3px, #ffbc03 0px 0px 7px;
 }
 
 
@@ -149,15 +153,23 @@ section {
     li[class^="lightbulbs"].off{
       background-color: $lightdim;
       box-shadow: none;
-      color: lighten($light, 20%);
+      color: darken($light, 20%);
+      text-shadow: unset;
     }
 
   }
   
-  
-.vis-hidden {
-  visibility: hidden;
+
+@media (max-width: 900px) {
+  html {
+    font-size: 15px;
+  }
+  section.game-section {
+    width: 80%;
+  }
 }
-.disp-none {
-  display: none;
+@media (max-width: 400px) {
+  html {
+    font-size: 13px;
+  }
 }

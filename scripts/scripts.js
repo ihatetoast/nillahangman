@@ -33,14 +33,15 @@ const animals = [
     let playerScore = 0;
     let computerScore = 0;
     let scoreAmount = 0;
+
+
     // TIME AS VAR SINCE I KEEP CHANGING MY MIND. 
     // TIME HERE FILLS HTML AND TIMER
-    const timeLimit = 5;// sep var since this is in html and fcn
+    const timeLimit = 20;// sep var since this is in html and fcn
     // GAME VARS
     let gameAnimal, gameAnimalExample, isWordGuessed;
 
     
-
 
     var animalType = document.getElementById("animalType"), 
     animalToGuess = document.getElementById("animalToGuess"),
@@ -108,16 +109,9 @@ const animals = [
 document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("time").innerHTML = timeLimit;
-    // CREATE LIGHTS FOR COUNTOWN
-    for(let i = 0; i < timeLimit; i++){
-        let light = document.createElement('li');
-        light.classList.add("lightbulbs")
-        light.setAttribute("id", "light-"+i);
-        light.innerHTML = "*"
-        lights.insertBefore(light, lights.childNodes[0]);
-    }
+    
     updateScores();
-
+    resetLights();
     // DISPLAY THE GAME PARTS: ANIMAL TYPE AND DASHES
     function displayGame(){
         gameAnimal = getAnimal();
@@ -147,18 +141,21 @@ document.addEventListener("DOMContentLoaded", function() {
             // PLAYER GETS SCORE
             isWordGuessed = true;
             playerScore += scoreAmount;
-            roundReset();
+            
             updateScores();
+            resetLights();
+//  TO DO: ASK PLAYER IF THEY WANT TO PLAY AGAIN. IF SO, RESET, OTHERWISE FIRE QUIT
+            roundReset();
         } else {
-            // KEEP TICKING
-            isWordGuessed = false;
+            return;
 
         }
-        return;
     };
-    function resetLights(){
-        Array.from(document.querySelectorAll('.lightbulbs.off')).forEach(function(el) { 
+    function resetLights(time){
+        // CREATE LIGHTS FOR COUNTDOWN
+        Array.from(document.querySelectorAll('.lightbulbs.off')).forEach(function(el, i) { 
             el.classList.remove('off');
+            el.innerHTML = "x";
         });
     }
 
@@ -176,9 +173,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // GAME OVER CLEARS INTERVAL, RESETS TIMER WORD VARS
     function roundReset() {
         clearInterval(timer);
-        resetLights();
         timer = 0;
         timeRem = timeLimit;
+        resetLights();
         gameAnimal = "";
         gameAnimalExample = "";
         toggleClass([message], "vis-hidden");
@@ -194,22 +191,23 @@ document.addEventListener("DOMContentLoaded", function() {
     let timer; 
     let timeRem = timeLimit;
     function updateTimer() {
-        timeRem = timeRem - 1;
-        
-        let lt = document.getElementById("light-"+timeRem)
-        lt.classList.add("off")
         if(timeRem > 0){
             console.log(timeRem);
-
+            let lt = document.getElementById("light-"+timeRem);
+            console.log(lt)
+            lt.classList.add("off");
+            lt.innerHTML = "-"
         }
         else {
             if(!isWordGuessed){
                 compScore += scoreAmount;
                 updateScores();
                 roundReset();
-                
-            }            
+                resetLights();
+            }    
+            clearInterval(timer);        
         }
+        timeRem = timeRem - 1;
       }
 
     function startTimer() {
@@ -218,12 +216,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // QUIT THE GAME ~ RESET
     function handleQuit(){
-        clearInterval(timer);
-        resetLights();
+        
         // any score is reset
         playerScore = 0;
         computerScore = 0;
         scoreAmount = 0;
+        timeRem = timeLimit;
+        clearInterval(timer);
+        resetLights();
         updateScores();
         toggleClass([wordWrapper], "vis-hidden");
         toggleClass([playButton, quitButton], "disp-none");

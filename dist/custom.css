@@ -55,14 +55,6 @@ html {
   font-size: 16px;
   font-family: "Roboto", sans-serif; }
 
-@media (max-width: 900px) {
-  html {
-    font-size: 15px; } }
-
-@media (max-width: 400px) {
-  html {
-    font-size: 13px; } }
-
 p {
   line-height: 1.25em;
   font-size: 1.2rem; }
@@ -84,6 +76,12 @@ header {
   font-size: 1.5rem;
   font-family: "Merriweather", serif;
   padding: 1em; }
+
+.vis-hidden {
+  visibility: hidden; }
+
+.disp-none {
+  display: none; }
 
 section {
   padding: 1em;
@@ -123,6 +121,11 @@ section {
       background-color: #555a5f;
       color: #ff9900; }
 
+input.guess {
+  font-size: 1.2rem;
+  padding: 0.5em 0.2em;
+  width: 50%; }
+
 .game-container .scores {
   min-width: 22em;
   width: 50%;
@@ -141,21 +144,26 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 4px;
-    height: 20px;
-    width: 20px; }
+    height: 30px;
+    width: 30px; }
   .game-word-wrapper .lights li[class^="lightbulbs"] {
     background-color: #d6fc01;
     box-shadow: 0 0 5px 0px #d6fc01;
-    color: #809601; }
+    color: #FF7303;
+    text-shadow: #ff4a03 0px 0px 3px, #ffbc03 0px 0px 7px; }
 
 .game-word-wrapper li[class^="lightbulbs"].off {
   background-color: rgba(229, 245, 141, 0.4);
   box-shadow: none;
-  color: #e7fe65; }
+  color: #809601;
+  text-shadow: unset; }
 
-.vis-hidden {
-  visibility: hidden; }
+@media (max-width: 900px) {
+  html {
+    font-size: 15px; }
+  section.game-section {
+    width: 80%; } }
 
-.disp-none {
-  display: none; }
+@media (max-width: 400px) {
+  html {
+    font-size: 13px; } }
