@@ -138,7 +138,7 @@ section {
       width: 20px;
       
     }
-    li[class^="lights"]{
+    li[class^="lightbulbs"]{
       background-color: $light;
       box-shadow: 0 0 5px 0px $light;
       color: darken($light, 20%);
@@ -146,7 +146,7 @@ section {
 
 
     }
-    li[class^="lights"].off{
+    li[class^="lightbulbs"].off{
       background-color: $lightdim;
       box-shadow: none;
       color: lighten($light, 20%);

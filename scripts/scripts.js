@@ -35,7 +35,7 @@ const animals = [
     let scoreAmount = 0;
     // TIME AS VAR SINCE I KEEP CHANGING MY MIND. 
     // TIME HERE FILLS HTML AND TIMER
-    const timeLimit = 20;// sep var since this is in html and fcn
+    const timeLimit = 5;// sep var since this is in html and fcn
     // GAME VARS
     let gameAnimal, gameAnimalExample, isWordGuessed;
 
@@ -108,27 +108,16 @@ const animals = [
 document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("time").innerHTML = timeLimit;
-    for(let i = 0; i < 20; i++){
+    // CREATE LIGHTS FOR COUNTOWN
+    for(let i = 0; i < timeLimit; i++){
         let light = document.createElement('li');
-        light.classList.add("lightson")
+        light.classList.add("lightbulbs")
         light.setAttribute("id", "light-"+i);
         light.innerHTML = "*"
         lights.insertBefore(light, lights.childNodes[0]);
-
     }
     updateScores();
 
-    // PLAY GAME: DISPLAY GAME BITS, MAKE PLAY BUTTON UNCLICKABLE
-    function handlePlayGame(){
-        isWordGuessed = false;
-        displayGame();
-        toggleClass([wordWrapper], "vis-hidden");
-        document.getElementById("guess").focus();
-        document.getElementById("guess").select();
-        toggleClass([playButton, quitButton], "disp-none");
-        startTimer();
-    }
-    
     // DISPLAY THE GAME PARTS: ANIMAL TYPE AND DASHES
     function displayGame(){
         gameAnimal = getAnimal();
@@ -139,7 +128,17 @@ document.addEventListener("DOMContentLoaded", function() {
         animalToGuess.innerHTML = handleGameWord(gameAnimalExample);
         
     };
-
+    // PLAY GAME: DISPLAY GAME BITS, MAKE PLAY BUTTON UNCLICKABLE
+    function handlePlayGame(){
+        isWordGuessed = false;
+        displayGame();
+        toggleClass([wordWrapper], "vis-hidden");
+        document.getElementById("guess").focus();
+        document.getElementById("guess").select();
+        toggleClass([playButton, quitButton], "disp-none");
+        startTimer();
+    }
+    // CLICK EVT
     playButton.addEventListener("click", handlePlayGame);
 
     // COMPARE VALUE BY GAME PLAYER TO ANIMAL
@@ -148,16 +147,23 @@ document.addEventListener("DOMContentLoaded", function() {
             // PLAYER GETS SCORE
             isWordGuessed = true;
             playerScore += scoreAmount;
-            roundReset("You guessed correctly.");
+            roundReset();
             updateScores();
         } else {
             // KEEP TICKING
-            return;
+            isWordGuessed = false;
+
         }
+        return;
+    };
+    function resetLights(){
+        Array.from(document.querySelectorAll('.lightbulbs.off')).forEach(function(el) { 
+            el.classList.remove('off');
+        });
     }
 
-    
 
+    // COMPARE WORDS FIRED ON ENTER
     const node = document.getElementById("guess");
     node.addEventListener("keyup", ({key}) => {
         let val = document.getElementById("guess").value;
@@ -168,21 +174,19 @@ document.addEventListener("DOMContentLoaded", function() {
     })
 
     // GAME OVER CLEARS INTERVAL, RESETS TIMER WORD VARS
-    function roundReset(msg) {
+    function roundReset() {
         clearInterval(timer);
+        resetLights();
         timer = 0;
         timeRem = timeLimit;
         gameAnimal = "";
         gameAnimalExample = "";
         toggleClass([message], "vis-hidden");
-        message.innerHTML = msg;
         setTimeout(() => {
-            message.innerHTML ='';
             toggleClass([message], "vis-hidden");
         }, 3000);
         
-        displayGame();
-        startTimer();
+        
     }
     
 // TIMER FUNCTIONS
@@ -201,8 +205,9 @@ document.addEventListener("DOMContentLoaded", function() {
         else {
             if(!isWordGuessed){
                 compScore += scoreAmount;
-                roundReset("Computer wins round.");
                 updateScores();
+                roundReset();
+                
             }            
         }
       }
@@ -213,7 +218,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // QUIT THE GAME ~ RESET
     function handleQuit(){
-        clearInterval(timer)
+        clearInterval(timer);
+        resetLights();
         // any score is reset
         playerScore = 0;
         computerScore = 0;
@@ -221,8 +227,6 @@ document.addEventListener("DOMContentLoaded", function() {
         updateScores();
         toggleClass([wordWrapper], "vis-hidden");
         toggleClass([playButton, quitButton], "disp-none");
-        let allLights = document.getElementsByClassName("lightson");
-        allLights.classList.remove("off");
     }
     quitButton.addEventListener("click", handleQuit);
     
