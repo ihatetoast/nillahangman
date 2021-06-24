@@ -110,7 +110,8 @@ section {
       cursor: pointer; }
     .button-container .buttons.playBtn {
       background-color: #ff9900;
-      color: #555a5f; }
+      color: #555a5f;
+      margin-right: 1em; }
     .button-container .buttons.playBtn:hover {
       background-color: #f3c083;
       color: #1e1f23; }

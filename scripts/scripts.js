@@ -41,6 +41,7 @@ const animals = [
     // GAME VARS
     let gameAnimal, gameAnimalExample, isWordGuessed;
 
+    let isPlaying = false;
     
 
     var animalType = document.getElementById("animalType"), 
@@ -78,7 +79,7 @@ const animals = [
         const strArr = str.split('');
         // first and last letters:
         hiddenWordArr[0] = (strArr[0]);
-        hiddenWordArr[1] =(strArr[strArr.length-1]);
+        hiddenWordArr[1] = (strArr[strArr.length-1]);
         // intermediate letters become dashes
         for(let i = 1; i < strArr.length - 1; i++){
             if(strArr[i]===" "){
@@ -91,11 +92,6 @@ const animals = [
         }
         return hiddenWordArr.join("").toUpperCase();
     }
-   
-    // TAKES AND ARRAY AND TOGGLES CLASS. USU FOR THE BUTTONS HERE
-    function toggleClass(els, cls){     
-        els.forEach(el => el.classList.contains(cls) ? el.classList.remove(cls) : el.classList.add(cls))
-    };
     
 
 // DOM 
@@ -113,24 +109,24 @@ document.addEventListener("DOMContentLoaded", function() {
     updateScores();
     resetLights();
     // DISPLAY THE GAME PARTS: ANIMAL TYPE AND DASHES
-    function displayGame(){
+    function displayGame(isPlaying){
         gameAnimal = getAnimal();
         const randoAnimalIdx = getRando(gameAnimal.samples.length - 1);
         console.log(gameAnimal.samples[randoAnimalIdx])
         gameAnimalExample = gameAnimal.samples[randoAnimalIdx];
         animalType.innerHTML = gameAnimal.type;
-        animalToGuess.innerHTML = handleGameWord(gameAnimalExample);
+        animalToGuess.innerHTML = handleGameWord(gameAnimalExample);document.getElementById("guess").focus();
+        document.getElementById("guess").select();
+        wordWrapper.classList.remove('vis-hidden')
         
     };
     // PLAY GAME: DISPLAY GAME BITS, MAKE PLAY BUTTON UNCLICKABLE
     function handlePlayGame(){
         isWordGuessed = false;
         displayGame();
-        toggleClass([wordWrapper], "vis-hidden");
-        document.getElementById("guess").focus();
-        document.getElementById("guess").select();
-        toggleClass([playButton, quitButton], "disp-none");
+        
         startTimer();
+        quitButton.classList.remove("disp-none");
     }
     // CLICK EVT
     playButton.addEventListener("click", handlePlayGame);
@@ -141,11 +137,12 @@ document.addEventListener("DOMContentLoaded", function() {
             // PLAYER GETS SCORE
             isWordGuessed = true;
             playerScore += scoreAmount;
-            
+            clearInterval(timer);
             updateScores();
             resetLights();
-//  TO DO: ASK PLAYER IF THEY WANT TO PLAY AGAIN. IF SO, RESET, OTHERWISE FIRE QUIT
+
             roundReset();
+
         } else {
             return;
 
@@ -172,18 +169,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // GAME OVER CLEARS INTERVAL, RESETS TIMER WORD VARS
     function roundReset() {
-        clearInterval(timer);
         timer = 0;
         timeRem = timeLimit;
         resetLights();
         gameAnimal = "";
         gameAnimalExample = "";
-        toggleClass([message], "vis-hidden");
-        setTimeout(() => {
-            toggleClass([message], "vis-hidden");
-        }, 3000);
-        
-        
+        playButton.innerHTML = "Play again?"
+              
     }
     
 // TIMER FUNCTIONS
@@ -194,18 +186,18 @@ document.addEventListener("DOMContentLoaded", function() {
         if(timeRem > 0){
             console.log(timeRem);
             let lt = document.getElementById("light-"+timeRem);
-            console.log(lt)
             lt.classList.add("off");
             lt.innerHTML = "-"
         }
-        else {
+        else { 
+            clearInterval(timer);  
             if(!isWordGuessed){
                 compScore += scoreAmount;
                 updateScores();
                 roundReset();
                 resetLights();
             }    
-            clearInterval(timer);        
+                 
         }
         timeRem = timeRem - 1;
       }
@@ -222,11 +214,12 @@ document.addEventListener("DOMContentLoaded", function() {
         computerScore = 0;
         scoreAmount = 0;
         timeRem = timeLimit;
+        isPlaying = false;
+        isWordGuessed = false;
         clearInterval(timer);
         resetLights();
         updateScores();
-        toggleClass([wordWrapper], "vis-hidden");
-        toggleClass([playButton, quitButton], "disp-none");
+        wordWrapper.classList.remove("vis-hidden");
     }
     quitButton.addEventListener("click", handleQuit);
     
