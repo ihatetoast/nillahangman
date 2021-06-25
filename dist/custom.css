@@ -146,7 +146,11 @@ input.guess {
   font-weight: 700;
   text-transform: uppercase; }
 
+.game-word-wrapper .animalToGuess {
+  margin-left: 1em; }
+
 .game-word-wrapper .game-text {
+  font-size: 1.5rem;
   margin-bottom: 1em; }
 
 .game-word-wrapper .lights {

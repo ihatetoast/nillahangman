@@ -135,13 +135,17 @@ input.guess{
   }
 }}
 .game-word-wrapper{
-
+  
   .animalType{
     font-weight: 700;
     text-transform: uppercase;
+    
   }
-
+  .animalToGuess{
+    margin-left: 1em;
+  }
   .game-text{
+    font-size: 1.5rem;
     margin-bottom: 1em;
   }
   .lights{

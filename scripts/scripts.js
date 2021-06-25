@@ -34,10 +34,9 @@ const animals = [
     let computerScore = 0;
     let scoreAmount = 0;
 
-
     // TIME AS VAR SINCE I KEEP CHANGING MY MIND. 
     // TIME HERE FILLS HTML AND TIMER
-    const timeLimit = 20;// sep var since this is in html and fcn
+    const timeLimit = 5;// sep var since this is in html and fcn
     // GAME VARS
     let gameAnimal, gameAnimalExample, isWordGuessed;
 
@@ -137,6 +136,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if(str1.toLowerCase() === str2.toLowerCase()){
             // PLAYER GETS SCORE
             isWordGuessed = true;
+            animalToGuess.innerHTML = `${gameAnimalExample.toUpperCase()}! Yay!`;
             playerScore += scoreAmount;
             clearInterval(timer);
             updateScores();
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // GAME OVER CLEARS INTERVAL, RESETS TIMER WORD VARS
     function roundReset() {
-        timer = 0;
+        stopTimer();
         timeRem = timeLimit;
         resetLights();
         playButton.classList.remove("noclick");
@@ -181,25 +181,30 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
 // TIMER FUNCTIONS
-  
+
+
+
     let timer; 
     let timeRem = timeLimit;
     function updateTimer() {
+        
         if(timeRem > 0){
             console.log(timeRem);
             let lt = document.getElementById("light-"+timeRem);
             lt.classList.add("off");
             lt.innerHTML = "-"
         }
-        else { 
-            clearInterval(timer);  
-            if(!isWordGuessed){
-                compScore += scoreAmount;
-                updateScores();
-                roundReset();
-                resetLights();
-            }    
-                 
+        else if(!isWordGuessed && timeRem === 0){ 
+            animalToGuess.innerHTML = `The animal was ${gameAnimalExample.toUpperCase()}`;
+            computerScore += scoreAmount;
+            updateScores();
+            
+            
+            playButton.classList.remove("noclick");
+            roundReset();
+            // clearInterval(timer); 
+            
+            resetLights();     
         }
         timeRem = timeRem - 1;
       }
@@ -207,7 +212,13 @@ document.addEventListener("DOMContentLoaded", function() {
     function startTimer() {
         timer = setInterval(updateTimer, 1000);
     }
-
+    function stopTimer() {
+        clearInterval(timer);
+        console.log("time's up", timeRem)
+        timeRem = timeLimit;
+        console.log("time rem is now: ", timeRem)
+    }
+    // 
     // QUIT THE GAME ~ RESET
     function handleQuit(){
         
@@ -221,7 +232,8 @@ document.addEventListener("DOMContentLoaded", function() {
         clearInterval(timer);
         resetLights();
         updateScores();
-        wordWrapper.classList.remove("vis-hidden");
+        wordWrapper.classList.add("vis-hidden");
+        playButton.classList.remove("noclick")
     }
     quitButton.addEventListener("click", handleQuit);
     
