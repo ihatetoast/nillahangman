@@ -97,6 +97,10 @@ section {
       background-color: $dkorange;
       color: $dkgrey;
       margin-right: 1em;
+      &.noclick{
+        pointer-events: none;
+        background-color: $orange;
+      }
     }
     &.playBtn:hover{
       background-color: $orange;
@@ -117,21 +121,33 @@ input.guess{
   padding: 0.5em 0.2em;
   width: 50%;
 }
-.game-container .scores{
-  min-width: 22em;
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
+.game-container {
+  .score-wrapper{margin-bottom: 1em;}
+  
+  .scores{
+    min-width: 22em;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
   li.score{
     font-size: 1.5rem;
     font-family: $title;
   }
-}
+}}
 .game-word-wrapper{
-  
+
+  .animalType{
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .game-text{
+    margin-bottom: 1em;
+  }
   .lights{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 1em;
     li{
       border: 1px solid $light;
       border-radius: 50%;
@@ -173,4 +189,5 @@ input.guess{
   html {
     font-size: 13px;
   }
+
 }

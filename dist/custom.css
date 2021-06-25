@@ -112,6 +112,9 @@ section {
       background-color: #ff9900;
       color: #555a5f;
       margin-right: 1em; }
+      .button-container .buttons.playBtn.noclick {
+        pointer-events: none;
+        background-color: #f3c083; }
     .button-container .buttons.playBtn:hover {
       background-color: #f3c083;
       color: #1e1f23; }
@@ -127,6 +130,9 @@ input.guess {
   padding: 0.5em 0.2em;
   width: 50%; }
 
+.game-container .score-wrapper {
+  margin-bottom: 1em; }
+
 .game-container .scores {
   min-width: 22em;
   width: 50%;
@@ -136,9 +142,17 @@ input.guess {
     font-size: 1.5rem;
     font-family: "Merriweather", serif; }
 
+.game-word-wrapper .animalType {
+  font-weight: 700;
+  text-transform: uppercase; }
+
+.game-word-wrapper .game-text {
+  margin-bottom: 1em; }
+
 .game-word-wrapper .lights {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  margin-bottom: 1em; }
   .game-word-wrapper .lights li {
     border: 1px solid #d6fc01;
     border-radius: 50%;

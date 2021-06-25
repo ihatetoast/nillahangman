@@ -1,82 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Merriweather&family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./dist/custom.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Merriweather&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./dist/custom.css" />
     <title>Bird, Beast, or Fish</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>Bird, Beast, or Fish</h1>
+      <h1>Bird, Beast, or Fish</h1>
     </header>
     <main>
-        <section class="instructions">
-            <h2>How to play</h2>
-            <ul>
-                <li>You will be given the name of an animal with only the first and last letters shown.</li>
-                <li>You will be told whether the animal is a bird, beast, or fish. "Beast" will include land mammals, reptiles, insects, and spiders; "Fish" will include true fish as well as other water-dwelling animals (eg. lobster, octopus, whale).</li>
-                <li>If the animal's name consists of two or more words, only the initial of the first word and the last letter of the last word will be shown (eg. bald eagle:  B - - - / - - - - E).</li>
-                <li>You have <span id="time"></span> seconds to guess the animal.</li>
-                <li>If you guess correctly, your score increases by the number of intermediate blanks.</li>
-                <li>If you are not, the computer gets the points. First to 50 wins.  MAYBE. DO I WANT THIS? DO I CARE? </li>
-            </ul>
-        </section>
-        <section class="game-section">
-            <!-- BUTTON CONTAINER ALWAYS DISPLAYED. ONLY BUTTONS INSIDE CHANGE -->
-            <div class="button-container">
-                <button id="playGame" class="buttons playBtn">Play!</button>
-                <button id="quitGame" class="buttons quitBtn disp-none">Quit</button>
-                <p id="message" class="message"></p>
-            </div>
-            <!-- GAME CONTAINER WILL SHOW SCORE AND WORD. STAYS OPEN ALL GAME.
+      <section class="instructions">
+        <h2>How to play</h2>
+        <ul>
+          <li>
+            You will be given the name of an animal with only the first and last
+            letters shown.
+          </li>
+          <li>
+            You will be told whether the animal is a bird, beast, or fish.
+            "Beast" will include land mammals, reptiles, insects, and spiders;
+            "Fish" will include true fish as well as other water-dwelling
+            animals (eg. lobster, octopus, whale).
+          </li>
+          <li>
+            If the animal's name consists of two or more words, only the initial
+            of the first word and the last letter of the last word will be shown
+            (eg. bald eagle: B - - - / - - - - E).
+          </li>
+          <li>You have <span id="time"></span> seconds to guess the animal.</li>
+          <li>
+            If you guess correctly, your score increases by the number of
+            intermediate blanks.
+          </li>
+          <li>
+            If you are not, the computer gets the points. First to 50 wins.
+            MAYBE. DO I WANT THIS? DO I CARE?
+          </li>
+        </ul>
+      </section>
+      <section class="game-section">
+        <!-- BUTTON CONTAINER ALWAYS DISPLAYED. ONLY BUTTONS INSIDE CHANGE -->
+        <div class="button-container">
+          <button id="playGame" class="buttons playBtn">Play!</button>
+          <button id="quitGame" class="buttons quitBtn disp-none">Quit</button>
+          <p id="message" class="message"></p>
+        </div>
+        <!-- GAME CONTAINER WILL SHOW SCORE AND WORD. STAYS OPEN ALL GAME.
             CLOSES WHEN USER QUITS. ?
             -->
-            <div id="game-container" class="game-container">
-                
-                <div class="score-timer-wrapper">
-                    <ul class="scores">
-                        <li class="score user">You: <span id="user-score"></span></li>
-                        <li class="score computer">Computer: <span id="computer-score"></span></li>
-                    </ul>
-                    
-                </div>
-                <div class="game-word-wrapper vis-hidden" id="game-word-wrapper">
-                    <ul id="lights" class="lights">
-                        <li class="lightbulbs" id="light-20">x</li>
-                        <li class="lightbulbs" id="light-19">x</li>
-                        <li class="lightbulbs" id="light-18">x</li>
-                        <li class="lightbulbs" id="light-17">x</li>
-                        <li class="lightbulbs" id="light-16">x</li>
-                        <li class="lightbulbs" id="light-15">x</li>
-                        <li class="lightbulbs" id="light-14">x</li>
-                        <li class="lightbulbs" id="light-13">x</li>
-                        <li class="lightbulbs" id="light-12">x</li>
-                        <li class="lightbulbs" id="light-11">x</li>
-                        <li class="lightbulbs" id="light-10">x</li>
-                        <li class="lightbulbs" id="light-9">x</li>
-                        <li class="lightbulbs" id="light-8">x</li>
-                        <li class="lightbulbs" id="light-7">x</li>
-                        <li class="lightbulbs" id="light-6">x</li>
-                        <li class="lightbulbs" id="light-5">x</li>
-                        <li class="lightbulbs" id="light-4">x</li>
-                        <li class="lightbulbs" id="light-3">x</li>
-                        <li class="lightbulbs" id="light-2">x</li>
-                        <li class="lightbulbs" id="light-1">x</li>
-                    </ul>
-                    <p class="game-text">Your animal is <span id="animalType"></span>: <span id="animalToGuess"></span></p>
-                    <input type="text" class="guess" id="guess" placeholder="Your guess" >
-                </div>
-                
+        <div id="game-container" class="game-container">
+          <div class="score-wrapper">
+            <ul class="scores">
+              <li class="score user">You: <span id="user-score"></span></li>
+              <li class="score computer">
+                Computer: <span id="computer-score"></span>
+              </li>
+            </ul>
+          </div>
+          <div class="game-word-wrapper vis-hidden" id="game-word-wrapper">
+            <ul id="lights" class="lights">
+              <li class="lightbulbs" id="light-20">x</li>
+              <li class="lightbulbs" id="light-19">x</li>
+              <li class="lightbulbs" id="light-18">x</li>
+              <li class="lightbulbs" id="light-17">x</li>
+              <li class="lightbulbs" id="light-16">x</li>
+              <li class="lightbulbs" id="light-15">x</li>
+              <li class="lightbulbs" id="light-14">x</li>
+              <li class="lightbulbs" id="light-13">x</li>
+              <li class="lightbulbs" id="light-12">x</li>
+              <li class="lightbulbs" id="light-11">x</li>
+              <li class="lightbulbs" id="light-10">x</li>
+              <li class="lightbulbs" id="light-9">x</li>
+              <li class="lightbulbs" id="light-8">x</li>
+              <li class="lightbulbs" id="light-7">x</li>
+              <li class="lightbulbs" id="light-6">x</li>
+              <li class="lightbulbs" id="light-5">x</li>
+              <li class="lightbulbs" id="light-4">x</li>
+              <li class="lightbulbs" id="light-3">x</li>
+              <li class="lightbulbs" id="light-2">x</li>
+              <li class="lightbulbs" id="light-1">x</li>
+            </ul>
+            <div class="prompt-input-wrapper">
+              <p class="game-text">
+                Your animal is <span id="animalType" class="animalType"></span>:
+                <span id="animalToGuess"></span>
+              </p>
+              <input
+                type="text"
+                class="guess"
+                id="guess"
+                placeholder="Your guess"
+              />
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
     </main>
-    <footer>
-
-    </footer>
+    <footer></footer>
     <script src="./scripts/scripts.js"></script>
-</body>
+  </body>
 </html>

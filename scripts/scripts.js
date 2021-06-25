@@ -85,7 +85,7 @@ const animals = [
             if(strArr[i]===" "){
                 hiddenWordArr.splice(i, 0, " / ");
             } else {
-                hiddenWordArr.splice(i, 0, " - ");
+                hiddenWordArr.splice(i, 0, " &#8212; ");
                 // INTERMITTENT LETTERS = SCORE TAHT WILL GO TO USER OR PUTER
                 scoreAmount++;
             }
@@ -127,6 +127,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         startTimer();
         quitButton.classList.remove("disp-none");
+        playButton.classList.add("noclick");
     }
     // CLICK EVT
     playButton.addEventListener("click", handlePlayGame);
@@ -172,6 +173,7 @@ document.addEventListener("DOMContentLoaded", function() {
         timer = 0;
         timeRem = timeLimit;
         resetLights();
+        playButton.classList.remove("noclick");
         gameAnimal = "";
         gameAnimalExample = "";
         playButton.innerHTML = "Play again?"
