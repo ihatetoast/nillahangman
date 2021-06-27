@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
     updateScores();
     resetLights();
     // DISPLAY THE GAME PARTS: ANIMAL TYPE AND DASHES
-    function displayGame(isPlaying){
+    function displayGame(){
         gameAnimal = getAnimal();
         const randoAnimalIdx = getRando(gameAnimal.samples.length - 1);
         console.log(gameAnimal.samples[randoAnimalIdx])
@@ -174,6 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
         timeRem = timeLimit;
         resetLights();
         playButton.classList.remove("noclick");
+        scoreAmount = 0;
         gameAnimal = "";
         gameAnimalExample = "";
         playButton.innerHTML = "Play again?"
