@@ -115,11 +115,11 @@ var animalType = document.getElementById("animalType"),
 
 // UPDATE SCORES
 function updateScores() {
-  if (playerScore >= 50) {
+  if (playerScore >= 20) {
     userScore.innerHTML = "Winner!";
     compScore.innerHTML = "Sad sack";
     isPlaying = false;
-  } else if (computerScore >= 50) {
+  } else if (computerScore >= 20) {
     userScore.innerHTML = "Sad sack";
     compScore.innerHTML = "Winner";
     isPlaying = false;
@@ -189,6 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // PLAY GAME: DISPLAY GAME BITS, MAKE PLAY BUTTON UNCLICKABLE
   function handlePlayGame() {
     isWordGuessed = false;
+    isPlaying = true;
     displayGame();
     startTimer();
     quitButton.classList.remove("disp-none");

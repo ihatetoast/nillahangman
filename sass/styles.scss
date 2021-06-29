@@ -53,6 +53,9 @@ header {
   font-family: $title;
   padding: 1em;
 }
+.bold {
+  font-weight: 700;
+}
 .vis-hidden {
   visibility: hidden;
 }
@@ -69,6 +72,9 @@ section {
       line-height: 1.2em;
       font-size: 1.2rem;
       margin: 0.5em 0;
+    }
+    ul li ul li{
+      padding-left: 1em;
     }
   }
   &.game-section {
@@ -187,6 +193,9 @@ input.guess{
   }
   section.game-section {
     width: 80%;
+  }
+  .game-container .scores{
+    width: 100%;
   }
 }
 @media (max-width: 400px) {
