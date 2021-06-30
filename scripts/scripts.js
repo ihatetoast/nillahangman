@@ -22,7 +22,7 @@ const animals = [
       "sparrow",
       "penguin",
       "butterfly",
-      "bald eagle",
+      "bald eagle"
     ],
   },
   {
@@ -75,21 +75,8 @@ const animals = [
     ],
   },
 ];
-// const animals = [
-//     {
-//         type: "bird",
-//         samples: ["bald eagle", ]
-//     },
-//     {
-//         type: "beast",
-//         samples: [ "mountain lion", "pink fairy armadillo"]
-//     },
-//     {
-//         type: "fish",
-//         samples: ["tiger shark"]
-//     }
-// ];
-
+// TO DO:
+// KEEP TRACK OF ANIMALS ALREADY GIVEN FOR NO REPEATS
 // SCORE VARIABLES
 let playerScore = 0;
 let computerScore = 0;
@@ -97,7 +84,7 @@ let scoreAmount = 0;
 
 // TIME AS VAR SINCE I KEEP CHANGING MY MIND.
 // TIME HERE FILLS HTML AND TIMER
-const timeLimit = 5; // sep var since this is in html and fcn
+const timeLimit = 20; // sep var since this is in html and fcn
 // GAME VARS
 let gameAnimal, gameAnimalExample, isWordGuessed;
 
@@ -119,10 +106,14 @@ function updateScores() {
     userScore.innerHTML = "Winner!";
     compScore.innerHTML = "Sad sack";
     isPlaying = false;
+    playButton.classList.add("disp-none");
+    quitButton.innerHTML="Quit and play again?"
   } else if (computerScore >= 20) {
     userScore.innerHTML = "Sad sack";
     compScore.innerHTML = "Winner";
     isPlaying = false;
+    playButton.classList.add("disp-none")
+    quitButton.innerHTML="Quit and play again?"
   } else {
     userScore.innerHTML = playerScore;
     compScore.innerHTML = computerScore;
@@ -297,6 +288,8 @@ document.addEventListener("DOMContentLoaded", function () {
     wordWrapper.classList.add("vis-hidden");
     playButton.classList.remove("noclick");
     playButton.innerHTML = "Play!";
+    playButton.classList.remove("disp-none");
+    quitButton.innerHTML="Quit!"
   }
   quitButton.addEventListener("click", handleQuit);
 });

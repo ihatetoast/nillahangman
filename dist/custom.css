@@ -88,17 +88,14 @@ header {
 
 section {
   padding: 1em;
-  margin: 0 auto; }
-  section.instructions {
-    width: 80%; }
-    section.instructions li {
-      line-height: 1.2em;
-      font-size: 1.2rem;
-      margin: 0.5em 0; }
-    section.instructions ul li ul li {
-      padding-left: 1em; }
-  section.game-section {
-    width: 40%; }
+  margin: 0 auto;
+  width: 60%; }
+  section.instructions li {
+    line-height: 1.2em;
+    font-size: 1.2rem;
+    margin: 0.5em 0; }
+  section.instructions ul li ul li {
+    padding-left: 1em; }
 
 .button-container {
   display: flex;
@@ -140,7 +137,6 @@ input.guess {
 
 .game-container .scores {
   min-width: 22em;
-  width: 50%;
   display: flex;
   justify-content: space-between; }
   .game-container .scores li.score {
@@ -185,7 +181,7 @@ input.guess {
 @media (max-width: 900px) {
   html {
     font-size: 15px; }
-  section.game-section {
+  section {
     width: 80%; }
   .game-container .scores {
     width: 100%; } }
