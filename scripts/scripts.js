@@ -75,12 +75,15 @@ const animals = [
     ],
   },
 ];
-// TO DO:
-// KEEP TRACK OF ANIMALS ALREADY GIVEN FOR NO REPEATS
+
 // SCORE VARIABLES
 let playerScore = 0;
 let computerScore = 0;
 let scoreAmount = 0;
+
+// TO DO:
+// KEEP TRACK OF ANIMALS ALREADY GIVEN FOR NO REPEATS
+let animalsUsedArr=[]
 
 // TIME AS VAR SINCE I KEEP CHANGING MY MIND.
 // TIME HERE FILLS HTML AND TIMER
@@ -125,10 +128,22 @@ function getRando(max) {
   return Math.floor(Math.random() * max);
 }
 
+
+// YOU ARE HERE:
+// MAKE SURE ANIMAL RETURNED IS NOT IN THE USED ANIMAL LIST.
 // GET ONE OF THE ANIMAL OBJECTS
 function getAnimal() {
   const randoIdx = getRando(animals.length);
-  const gameAnimalObj = animals[randoIdx];
+  const animalObj = animals[randoIdx];
+  const randoAnimalIdx = getRando(animalObj.samples.length - 1);
+  const gameAnimalObj ={
+    type: animalObj.type,
+    animal:animalObj.samples[randoAnimalIdx]
+  }
+  console.log(animalObj);
+  console.log(gameAnimalObj);
+  animalsUsedArr.push(gameAnimalObj.animal);
+  console.log(animalsUsedArr)
   return gameAnimalObj;
 }
 
@@ -168,9 +183,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // DISPLAY THE GAME PARTS: ANIMAL TYPE AND DASHES
   function displayGame() {
     gameAnimal = getAnimal();
-    const randoAnimalIdx = getRando(gameAnimal.samples.length - 1);
-    console.log(gameAnimal.samples[randoAnimalIdx]);
-    gameAnimalExample = gameAnimal.samples[randoAnimalIdx];
+  
+
+    
     animalType.innerHTML = gameAnimal.type;
     animalToGuess.innerHTML = handleGameWord(gameAnimalExample);
     document.getElementById("guess").focus();
@@ -279,6 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
     playerScore = 0;
     computerScore = 0;
     scoreAmount = 0;
+    animalsUsedArr=[];
     timeRem = timeLimit;
     isPlaying = false;
     isWordGuessed = false;
