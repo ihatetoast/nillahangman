@@ -1,5 +1,5 @@
 // check spelling. as in mantaray or manta ray
-const animals = [
+const animalsData = [
   {
     type: "bird",
     samples: [
@@ -83,6 +83,7 @@ let scoreAmount = 0;
 
 // TO DO:
 // KEEP TRACK OF ANIMALS ALREADY GIVEN FOR NO REPEATS
+let animals;
 let animalsUsedArr=[]
 
 // TIME AS VAR SINCE I KEEP CHANGING MY MIND.
@@ -128,22 +129,37 @@ function getRando(max) {
   return Math.floor(Math.random() * max);
 }
 
+function validateChoice(an, arr){
+  if(an){
+    
+  }
+}
 
 // YOU ARE HERE:
 // MAKE SURE ANIMAL RETURNED IS NOT IN THE USED ANIMAL LIST.
 // GET ONE OF THE ANIMAL OBJECTS
+// 
 function getAnimal() {
   const randoIdx = getRando(animals.length);
-  const animalObj = animals[randoIdx];
-  const randoAnimalIdx = getRando(animalObj.samples.length - 1);
-  const gameAnimalObj ={
-    type: animalObj.type,
-    animal:animalObj.samples[randoAnimalIdx]
+  
+  //CAPTURE THE ANIMAL OBJ TO GET TYPE AND A SAMPLE
+  const animalGameArr = animals.splice(randoIdx,1);
+
+  const randoAnimalIdx = getRando(animalGameArr[0].samples.length - 1);
+  const animalType = animalGameArr[0].type;
+  const animalSamples =animalGameArr[0].samples
+  console.log(animalGameArr)
+
+  const gameObj ={
+    type: animalType,
+    animal:animalSamples
   }
-  console.log(animalObj);
-  console.log(gameAnimalObj);
-  animalsUsedArr.push(gameAnimalObj.animal);
-  console.log(animalsUsedArr)
+
+  // console.log(animalChoiceArr);
+  
+  console.log(gameObj);
+  // animalsUsedArr.push(gameAnimalObj.animal);
+  // console.log(animalsUsedArr)
   return gameAnimalObj;
 }
 
@@ -177,7 +193,10 @@ function handleGameWord(str) {
 // DOM LOADED DOM LOADED DOM LOADED DOM DOM DOM DOM DOMMMMMM
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("time").innerHTML = timeLimit;
+  // COPY ANIMALS DATA SO I CAN MUTATE TEH FK OUT OF IT:
+ animals = animalsData.slice();
 
+  console.log(animals)
   updateScores();
   resetLights();
   // DISPLAY THE GAME PARTS: ANIMAL TYPE AND DASHES
@@ -185,7 +204,6 @@ document.addEventListener("DOMContentLoaded", function () {
     gameAnimal = getAnimal();
   
 
-    
     animalType.innerHTML = gameAnimal.type;
     animalToGuess.innerHTML = handleGameWord(gameAnimalExample);
     document.getElementById("guess").focus();
@@ -294,6 +312,7 @@ document.addEventListener("DOMContentLoaded", function () {
     playerScore = 0;
     computerScore = 0;
     scoreAmount = 0;
+    animals = animalsData.slice();
     animalsUsedArr=[];
     timeRem = timeLimit;
     isPlaying = false;
