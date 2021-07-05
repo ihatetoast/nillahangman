@@ -84,13 +84,12 @@ let scoreAmount = 0;
 // TO DO:
 // KEEP TRACK OF ANIMALS ALREADY GIVEN FOR NO REPEATS
 let animals;
-let animalsUsedArr=[]
 
 // TIME AS VAR SINCE I KEEP CHANGING MY MIND.
 // TIME HERE FILLS HTML AND TIMER
 const timeLimit = 20; // sep var since this is in html and fcn
 // GAME VARS
-let gameAnimal, gameAnimalExample, isWordGuessed;
+let gameAnimal, gameAnimalExample, gameAnimalType, isWordGuessed;
 
 let isPlaying = false;
 
@@ -143,30 +142,26 @@ function getAnimal() {
   const randoIdx = getRando(animals.length);
   
   //CAPTURE THE ANIMAL OBJ TO GET TYPE AND A SAMPLE
+  // REMOVE IT, AS YOU'LL REMOVE AN ANIMAL FROM THE SAMPLES AND THEN REPLACE THE OBJ
   const animalGameArr = animals.splice(randoIdx,1);
 
   const randoAnimalIdx = getRando(animalGameArr[0].samples.length - 1);
-  const animalType = animalGameArr[0].type;
-  const animalSamples =animalGameArr[0].samples
-  console.log(animalGameArr)
-
-  const gameObj ={
-    type: animalType,
-    animal:animalSamples
-  }
-
-  // console.log(animalChoiceArr);
   
-  console.log(gameObj);
-  // animalsUsedArr.push(gameAnimalObj.animal);
-  // console.log(animalsUsedArr)
-  return gameAnimalObj;
+  gameAnimalType = animalGameArr[0].type;
+
+  gameAnimalExample=animalGameArr[0].samples.splice(randoAnimalIdx,1)
+  
+
+  // RETURN TO ANIMAL ARR
+  animals.push(animalGameArr);
+  return;
 }
 
 // CHANGE WORD TO LETTERS + HYPHENS.
-function handleGameWord(str) {
+function handleGameWord(arr) {
   let hiddenWordArr = [];
-  const strArr = str.split("");
+  const strArr = arr[0].split("");
+  console.log(strArr)
   // first and last letters:
   hiddenWordArr[0] = strArr[0];
   hiddenWordArr[1] = strArr[strArr.length - 1];
@@ -193,18 +188,17 @@ function handleGameWord(str) {
 // DOM LOADED DOM LOADED DOM LOADED DOM DOM DOM DOM DOMMMMMM
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("time").innerHTML = timeLimit;
-  // COPY ANIMALS DATA SO I CAN MUTATE TEH FK OUT OF IT:
- animals = animalsData.slice();
-
+  // DEEPLY COPY ANIMALS DATA SO I CAN MUTATE TEH FK OUT OF IT ANDNOT RUIN FIRST
+  // OG ARR NEEDS RESETTING AT QUIT
+ 
+ animals = JSON.parse(JSON.stringify(animalsData));
   console.log(animals)
   updateScores();
   resetLights();
   // DISPLAY THE GAME PARTS: ANIMAL TYPE AND DASHES
   function displayGame() {
-    gameAnimal = getAnimal();
-  
-
-    animalType.innerHTML = gameAnimal.type;
+    getAnimal();
+    animalType.innerHTML = gameAnimalType;
     animalToGuess.innerHTML = handleGameWord(gameAnimalExample);
     document.getElementById("guess").focus();
     document.getElementById("guess").select();
