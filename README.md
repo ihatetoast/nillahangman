@@ -22,10 +22,13 @@ And I like critters.
 ## Where (to define air, land, and water)
 Air will be mostly birds, including the flightless, and bats. Water will be anything that mostly resides in water. For the sake of simplicity, amphibians will be in the water group, and reptiles that one mostly encounters (if one is unlucky) in water will be in that group, while others will be in the land group. My version; my rules. Turtles will be in the water group, but tortoises in the land.
 
+## What I got from this
+As I focus on learning different JavaScript frameworks and libraries, I do not want to forget that they are all JavaScript first. It also makes me appreciate the libraries such as ReactJS. 
+I did not know how to play this game, so I was learning how to play it as I built this, which added a complexity I appreciate because I had no internal or written user stories to follow. This allowed the user (me) to be more of a stranger. I couldn't barge on because I have played the game thousands of times. (Yes, thousands. This ADHD child spent some time in detention).
+
 ## How
 * HTML
 * CSS
 * SCSS
 * JavaScript
 * Gulp
-* Procreate
